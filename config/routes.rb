@@ -1,3 +1,6 @@
 Rails.application.routes.draw do
-  post 'auth/register', to: 'authentication#register'
+  namespace :auth do
+    post 'register', to: 'authentication#register'
+    post 'login', to: 'authentication#login'
+  end
 end
