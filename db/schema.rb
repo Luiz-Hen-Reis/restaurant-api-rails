@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_15_234719) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_17_235230) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "btree_gist"
@@ -35,6 +35,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_15_234719) do
   enable_extension "uuid-ossp"
   enable_extension "xml2"
 
+  create_table "user_addresses", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "street", null: false
+    t.string "StreetNumber", null: false
+    t.string "zipcode", null: false
+    t.string "complement", null: false
+    t.string "district", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_addresses_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -43,4 +55,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_15_234719) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "user_addresses", "users"
 end
