@@ -7,7 +7,7 @@ class ApplicationController < ActionController::API
     auth_header = request.headers['Authorization']
 
     if auth_header
-      token = auth_header.spli(' ').last
+      token = auth_header.split(' ').last
 
       begin
         JWT.decode(token, ENV['SECRET'], true, algorithm: 'HS256')
