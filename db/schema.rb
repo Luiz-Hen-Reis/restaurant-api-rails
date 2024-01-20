@@ -35,16 +35,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_20_002156) do
   enable_extension "uuid-ossp"
   enable_extension "xml2"
 
-  create_table "user_addresses_tables", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "user_addresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.string "street", null: false
-    t.string "StreetNumber", null: false
+    t.string "street_number", null: false
     t.string "zipcode", null: false
     t.string "complement", null: false
     t.string "district", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_user_addresses_tables_on_user_id"
+    t.index ["user_id"], name: "index_user_addresses_on_user_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -55,5 +55,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_20_002156) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "user_addresses_tables", "users"
+  add_foreign_key "user_addresses", "users"
 end
