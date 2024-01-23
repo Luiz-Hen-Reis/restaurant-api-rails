@@ -4,6 +4,11 @@ class Api::V1::CategoriesController < ApplicationController
   end
 
   def show
-    @category = Category.find(params[:id])
+    begin
+      @category = Category.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      @error_message = "Categoria não encontrada."
+      render 'error', status: :not_found
+    end
   end
 end
