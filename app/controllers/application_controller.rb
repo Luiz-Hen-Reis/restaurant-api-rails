@@ -30,4 +30,8 @@ class ApplicationController < ActionController::API
     render json: {message: 'Você precisa estar logado.'},
     status: :unauthorized unless authorized_user
   end
+
+  def set_user
+    @user = authorized_user
+  end
 end

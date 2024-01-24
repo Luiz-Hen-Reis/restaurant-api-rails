@@ -19,10 +19,6 @@ class Api::V1::UserAddressesController < ApplicationController
 
   private
 
-  def set_user
-    @user = authorized_user
-  end
-
   def address_params
     params.require(:user_address).permit(:street, :street_number, :zipcode, :district, :complement)
   end
