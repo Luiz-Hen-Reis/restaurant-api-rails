@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_23_001925) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_24_001011) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "btree_gist"
@@ -39,6 +39,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_001925) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.string "payment_method"
+    t.float "payment_cash_return"
+    t.float "delivery_price"
+    t.float "subtotal"
+    t.datetime "order_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "products", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -71,6 +83,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_001925) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "orders", "users", on_delete: :cascade
   add_foreign_key "products", "categories", on_delete: :cascade
   add_foreign_key "user_addresses", "users"
 end
