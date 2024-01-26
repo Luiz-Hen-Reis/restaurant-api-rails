@@ -10,10 +10,11 @@ class Api::V1::OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.user_id = @user.id
 
-    if @order.create
+    if @order.save
       render json: @order, status: :created
     else
       render json: @order.errors, status: :unprocessable_entity
+    end
   end
 
   private
