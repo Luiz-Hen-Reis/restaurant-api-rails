@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_24_001011) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_26_001709) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "btree_gist"
@@ -39,6 +39,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_24_001011) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "order_products", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "order_id", null: false
+    t.uuid "product_id", null: false
+    t.float "product_price"
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_products_on_order_id"
+    t.index ["product_id"], name: "index_order_products_on_product_id"
   end
 
   create_table "orders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -83,6 +94,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_24_001011) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "order_products", "orders", on_delete: :cascade
+  add_foreign_key "order_products", "products", on_delete: :cascade
   add_foreign_key "orders", "users", on_delete: :cascade
   add_foreign_key "products", "categories", on_delete: :cascade
   add_foreign_key "user_addresses", "users"
