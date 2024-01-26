@@ -20,7 +20,7 @@ class Api::V1::OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:orders).permit(:payment_method, :payment_cash_return,
-    :delivery_price, :subtotal, :order_date)
+    params.require(:order).permit(:payment_method, :payment_cash_return,:delivery_price, :subtotal, :order_date,
+    order_products_attributes: [:product_id, :product_price, :quantity])
   end
 end
