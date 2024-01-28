@@ -11,7 +11,7 @@ class Api::V1::OrdersController < ApplicationController
     @order.user_id = @user.id
 
     if @order.save
-      render json: @order, status: :created
+      render 'create', status: :created
     else
       render json: @order.errors, status: :unprocessable_entity
     end
@@ -20,7 +20,7 @@ class Api::V1::OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:payment_method, :payment_cash_return,:delivery_price, :total_price, :order_date,
-    order_products_attributes: [:product_id, :product_price, :quantity])
+    params.require(:order).permit(:payment_method, :payment_cash_return, :order_date,
+    order_products_attributes: [:product_id, :quantity])
   end
 end
