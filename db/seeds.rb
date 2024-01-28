@@ -4,10 +4,19 @@ Product.destroy_all
 puts "Creating Categories"
 
 temakis = Category.create(name: "Temakis")
+temakis.image.attach(io: File.open('public/assets/temaki.jpg'), filename: "temaki.jpg")
+
 pokes = Category.create(name: "Pokes")
+pokes.image.attach(io: File.open('public/assets/poke.jpg'), filename: "poke.jpg")
+
 hossomakis = Category.create(name: "Hossomakis")
+hossomakis.image.attach(io: File.open('public/assets/hossomaki.jpg'), filename: "hossomaki.jpg")
+
 uramakis = Category.create(name: "Uramakis")
+uramakis.image.attach(io: File.open('public/assets/uramaki.jpg'), filename: "uramaki.jpg")
+
 entradas = Category.create(name: "Entradas")
+entradas.image.attach(io: File.open('public/assets/sashimi.jpg'), filename: "sashimi.jpg")
 
 puts "Creating products"
 
