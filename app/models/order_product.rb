@@ -3,4 +3,12 @@ class OrderProduct < ApplicationRecord
   belongs_to :product
 
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
+
+  before_validation :set_product_price
+
+  private
+
+  def set_product_price
+    self.product_price = self.product.price
+  end
 end
