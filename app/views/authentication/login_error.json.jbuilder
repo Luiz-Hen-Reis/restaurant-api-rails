@@ -1,1 +1,1 @@
-json.error "Usuário ou senha inválidos."
+json.error "Email ou senha inválidos."
