@@ -4,12 +4,15 @@ module Auth
       @user = User.new(user_params)
 
       if User.exists?(email: @user.email)
-        render 'authentication/register_error',
+        render 'authentication/register_user_exists',
         status: :unprocessable_entity
-      else @user.valid?
+      elsif @user.valid?
         @token = encode_token({ user_id: @user.id })
         @user.save
         render 'authentication/register', status: :ok
+      else
+        render 'authentication/register_error',
+        status: :unprocessable_entity
       end
     end
 
