@@ -1,6 +1,17 @@
 class Api::V1::ProductsController < ApplicationController
   def index
-    @products = Product.all.order("name ASC")
+    default_limit = 8
+
+    page = params[:page].to_i.positive? ? params[:page].to_i : 1
+    limit = params[:limit].to_i.positive? ? params[:limit].to_i : default_limit
+
+    products_query = Product.order("name ASC").page(page).per(limit)
+
+    if products_query.out_of_range?
+      @products = Product.order("name ASC").page(products_query.total_pages).per(default_limit)
+    else
+      @products = products_query
+    end
   end
 
   def show
