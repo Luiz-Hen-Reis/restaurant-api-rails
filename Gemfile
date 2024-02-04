@@ -20,6 +20,8 @@ gem "bootsnap", require: false
 
 gem "rack-cors"
 
+gem 'kaminari'
+
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
 end
