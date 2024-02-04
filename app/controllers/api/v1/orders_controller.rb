@@ -3,7 +3,18 @@ class Api::V1::OrdersController < ApplicationController
   before_action :set_user
 
   def index
-    @orders = Order.where(user_id: @user.id)
+    default_limit = 5
+
+    page = params[:page].to_i.positive? ? params[:page].to_i : 1
+    limit = params[:limit].to_i.positive? ? params[:limit].to_i : default_limit
+
+    orders_query = Order.where(user_id: @user.id).order("created_at DESC").page(page).per(limit)
+
+    if orders_query.out_of_range?
+      @orders = Order.where(user_id: @user.id).order("created_at DESC").page(orders_query,total_pages).per(default_limit)
+    else
+      @orders = orders_query
+    end
   end
 
   def create
