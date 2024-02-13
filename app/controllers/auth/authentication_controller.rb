@@ -4,14 +4,14 @@ module Auth
       @user = User.new(user_params)
 
       if User.exists?(email: @user.email)
-        render 'authentication/register_user_exists',
+        render json: { error: "Já existe um usuário cadastro com este e-mail." },
         status: :unprocessable_entity
       elsif @user.valid?
         @token = encode_token({ user_id: @user.id })
         @user.save
-        render 'authentication/register', status: :ok
+        render 'register', status: :created
       else
-        render 'authentication/register_error',
+        render json: { error: "As senhas não coincidem." },
         status: :unprocessable_entity
       end
     end
@@ -21,9 +21,9 @@ module Auth
 
       if @user && @user.authenticate(user_params[:password])
         @token = encode_token({ user_id: @user.id })
-        render 'authentication/login', status: :ok
+        render 'login', status: :ok
       else
-        render 'authentication/login_error',
+        render json: { error: "Email ou senha inválidos." },
         status: :unprocessable_entity
       end
     end
