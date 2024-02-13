@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  namespace :auth do
+  namespace :auth, defaults: { format: :json } do
     post 'register', to: 'authentication#register'
     post 'login', to: 'authentication#login'
   end
