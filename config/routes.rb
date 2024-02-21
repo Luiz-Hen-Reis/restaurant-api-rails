@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   namespace :auth, defaults: { format: :json } do
     post 'register', to: 'authentication#register'
     post 'login', to: 'authentication#login'
+    get 'users/:id', to: 'authentication#show'
   end
 
   namespace :api, defaults: { format: :json } do
