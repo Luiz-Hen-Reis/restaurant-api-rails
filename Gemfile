@@ -24,6 +24,7 @@ gem 'kaminari'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
+  gem 'rspec-rails', '~> 6.1', '>= 6.1.2'
 end
 
 group :development do
