@@ -1,6 +1,3 @@
-json.categories @categories.each do |category|
-  json.id category.id
-  json.name category.name
-
-  json.image_url url_for(category.image) if category.image.attached?
+json.categories @categories do |category|
+  json.partial! category
 end
