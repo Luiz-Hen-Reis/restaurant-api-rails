@@ -27,10 +27,7 @@ class Api::V1::CategoriesController < ApplicationController
   private
 
   def s3_cache_read(key)
-    s3 = Aws::S3::Client.new(
-      region: Rails.application.credentials.dig(:aws, :s3_cache_bucket_region),
-      credentials: Aws::Credentials.new(Rails.application.credentials.dig(:aws, :access_key_id), Rails.application.credentials.dig(:aws, :secret_access_key))
-    )
+    s3 = s3_client
 
     begin
       response = s3.get_object(bucket: Rails.application.credentials.dig(:aws, :s3_cache_bucket), key: key)
@@ -43,10 +40,7 @@ class Api::V1::CategoriesController < ApplicationController
   end
 
   def s3_cache_write(key, data)
-    s3 = Aws::S3::Client.new(
-      region: Rails.application.credentials.dig(:aws, :s3_cache_bucket_region),
-      credentials: Aws::Credentials.new(Rails.application.credentials.dig(:aws, :access_key_id), Rails.application.credentials.dig(:aws, :secret_access_key))
-    )
+    s3 = s3_client
     s3.put_object(bucket: Rails.application.credentials.dig(:aws, :s3_cache_bucket), key: key, body: data.to_json)
   end
 

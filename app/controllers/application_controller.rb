@@ -34,4 +34,11 @@ class ApplicationController < ActionController::API
   def set_user
     @user = authorized_user
   end
+
+  def s3_client
+    Aws::S3::Client.new(
+      region: Rails.application.credentials.dig(:aws, :s3_cache_bucket_region),
+      credentials: Aws::Credentials.new(Rails.application.credentials.dig(:aws, :access_key_id), Rails.application.credentials.dig(:aws, :secret_access_key))
+    )
+  end
 end
