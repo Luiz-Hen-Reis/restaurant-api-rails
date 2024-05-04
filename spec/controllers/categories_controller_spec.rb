@@ -16,11 +16,11 @@ RSpec.describe Api::V1::CategoriesController, type: :controller do
         end
 
         it "should write categories to cache if not available" do
-            allow(controller).to receive(:s3_cache_read).and_return([nil, nil])
-            empty_relation = double('empty_relation', order: [])
-            expect(Category).to receive(:all).and_return(empty_relation)
-            expect(controller).to receive(:s3_cache_write)
-            get_index_action.call
+          allow(controller).to receive(:s3_cache_read).and_return([nil, nil])
+          empty_relation = double('empty_relation', order: [])
+          expect(Category).to receive(:all).and_return(empty_relation)
+          expect(controller).to receive(:s3_cache_write)
+          get_index_action.call
           end
     end
 end
