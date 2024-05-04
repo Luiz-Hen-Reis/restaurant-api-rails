@@ -32,3 +32,5 @@ end
 
 gem "aws-sdk-s3", require: false
 gem 'open-uri'
+gem 'factory_bot_rails', '~> 6.2'
+gem 'rails-controller-testing'
