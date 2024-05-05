@@ -25,6 +25,8 @@ gem 'kaminari'
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
   gem 'rspec-rails', '~> 6.1', '>= 6.1.2'
+  gem 'factory_bot_rails', '~> 6.2'
+  gem 'rails-controller-testing'
 end
 
 group :development do
@@ -32,5 +34,3 @@ end
 
 gem "aws-sdk-s3", require: false
 gem 'open-uri'
-gem 'factory_bot_rails', '~> 6.2'
-gem 'rails-controller-testing'
